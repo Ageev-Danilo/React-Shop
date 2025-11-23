@@ -1,4 +1,4 @@
-<img src="demo/icon.png">
+![Icon](demo/icon.png)
 
 # REACTJS PROJECT: **SHOP HAPI HAPI**
 
