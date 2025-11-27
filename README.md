@@ -1,4 +1,5 @@
-![demo picture](demo/icon.png)
+<image src="demo/icon.png" width="70" height="70" style="display: flex;"></image>
+
 # REACTJS PROJECT: **SHOP HAPI HAPI**
 
 **Hapi hapi** — інтерактивний веб-додаток інтернет-магазин з можливістю оформлення замовлень, управління товарами та користувацькими профілями.
