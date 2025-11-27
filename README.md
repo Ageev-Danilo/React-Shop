@@ -1,5 +1,4 @@
-<image src="demo/icon.png" width="70" height="70" style="display: flex;"></image>
-
+![demo picture](https://www.figma.com/design/hClVyiitXdrPCzTV12sMwK/Shop--Copy-?node-id=315-20184&t=DkOdQx5s4Ewa1blt-0)
 # REACTJS PROJECT: **SHOP HAPI HAPI**
 
 **Hapi hapi** — інтерактивний веб-додаток інтернет-магазин з можливістю оформлення замовлень, управління товарами та користувацькими профілями.
