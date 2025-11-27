@@ -4,3 +4,4 @@ package-lock.json
 /prisma/db
 /prisma/migrations
 src/generated/prisma
+.env
