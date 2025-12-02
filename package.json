@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "ts-test": "ts-node ./main.ts"
+    "start": "ts-node main.ts",
+    "gen": "npx prisma generate",
+    "migrate": "npx prisma migrate dev",
+    "format": "npx prisma format"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^5.1.0",
-    "prisma": "^7.0.0",
+    "prisma": "^6.17.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

@@ -1,14 +1,12 @@
 import express from "express";
-import pdRouter from "./product/router/";
+import pRouter from "./product/router";
 
-const app = express();
+const app: express.Express = express()
 
-app.use(express.json());
+app.use(express.json())
+app.use("/products", pRouter)
 
-app.use("/products", pdRouter);
 
-const PORT = 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(8000, 'localhost', () => {
+    console.log('http://localhost:8000')
+})
