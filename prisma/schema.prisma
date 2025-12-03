@@ -12,3 +12,53 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Delivery {
+  id             Int    @id @default(autoincrement())
+  area           String?
+  houseNumber    Int?
+  street         String?
+  flatNumber     Int?
+  entranceNumber Int?
+  order          Int?
+}
+
+model Order {
+  id             Int    @id @default(autoincrement())
+  contactData    Int?
+  comment        String?
+  deliveryStatus String?
+  payment        String?
+  delivery       Delivery?
+  totalPrice     Float?
+}
+
+model DescriptionBlock {
+  id          Int    @id @default(autoincrement())
+  name        String?
+  description String?
+  title       String?
+  second      String?
+  count       Int?
+  media       String?
+  price       Float?
+  product     Int?
+}
+
+model MediaDescriptionBlock {
+  id          Int    @id @default(autoincrement())
+  header      String?
+  description String?
+  media       String?
+  product     Int?
+}
+
+model CharacteristicsDescriptionBlock {
+  id             Int    @id @default(autoincrement())
+  header         String?
+  description    String?
+  characteristics String?
+  media          String?
+  product        Int?
+}
+
