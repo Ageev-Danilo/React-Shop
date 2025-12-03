@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { productService } from "./product.service";
-import { ProductControllerContract } from "./product.types";
+import { ProductControllerContract, ErrorResponse } from "./product.types";
 
 
 export const productController: ProductControllerContract = {

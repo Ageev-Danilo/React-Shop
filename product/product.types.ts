@@ -15,8 +15,8 @@ export type Product = Prisma.ProductGetPayload<{}>
 }*/
 
 export interface ProductControllerContract {
-    getAll: (req: Request<void, Product[] | Error, void, void>, res: Response<Product[] | Error>) => void
-    getById: (req: Request<{id: number}, Product | Error, void>, res: Response<Product | Error>) => void
+    getAll: (req: Request<void, Product[] | ErrorResponse, void, void>, res: Response<Product[] | ErrorResponse>) => void
+    getById: (req: Request<{id: number}, Product | Error, void>, res: Response<Product | ErrorResponse>) => void
 }
 
 export interface ProductServiceContract {
@@ -27,4 +27,8 @@ export interface ProductServiceContract {
 export interface ProductRepositoryContract {
     getAll: () => Promise<Product[]>
     getById: (id: number) => Promise<Product | null>
+}
+
+export interface ErrorResponse {
+    message?: string 
 }
