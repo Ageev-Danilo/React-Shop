@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-import { productService } from "./service";
+import { productService } from "./product.service";
+import { ProductControllerContract } from "./product.types";
 
-export const productController = {
-  async getAll(req: Request, res: Response) {
+
+export const productController: ProductControllerContract = {
+  async getAll(req, res) {
     try {
       const products = await productService.getAll()
       res.json(products)
@@ -11,7 +13,7 @@ export const productController = {
     }
   },
 
-  async getById(req: Request, res: Response) {
+  async getById(req, res) {
     try {
       const id = Number(req.params.id)
       const product = await productService.getById(id)

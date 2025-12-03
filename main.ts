@@ -1,5 +1,5 @@
 import express from "express";
-import pRouter from "./product/router";
+import pRouter from "./product/product.router";
 
 const app: express.Express = express()
 
