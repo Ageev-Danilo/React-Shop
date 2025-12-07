@@ -1,5 +1,6 @@
 import { Response, Request } from 'express';
-import { Prisma } from '../src/generated/prisma/browser';
+ import { Prisma } from './generated/prisma/browser';
+
 
 
 export type Product = Prisma.ProductGetPayload<{}>

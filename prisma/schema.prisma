@@ -1,10 +1,16 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model User {
@@ -20,24 +26,25 @@ model User {
   address       Delivery?    @relation(fields: [addressId], references: [id])
 }
 
-model Delivery {
-  id             Int    @id @default(autoincrement())
-  area           String?
-  houseNumber    Int?
-  street         String?
-  flatNumber     Int?
-  entranceNumber Int?
-  order          Int?
-}
+// model Delivery {
+//   id             Int    @id @default(autoincrement())
+//   area           String?
+//   houseNumber    Int?
+//   street         String?
+//   flatNumber     Int?
+//   entranceNumber Int?
+//   order          Int?
+// }
 
 model Order {
   id             Int    @id @default(autoincrement())
-  contactData    Int?
   comment        String?
   deliveryStatus String?
   payment        String?
-  delivery       Delivery?
+  // delivery       Delivery?
   totalPrice     Float?
+  contactDataId Int?
+  contactData   ContactData?    @relation(fields: [contactDataId], references: [id])
 }
 
 model DescriptionBlock {
@@ -49,7 +56,8 @@ model DescriptionBlock {
   count       Int?
   media       String?
   price       Float?
-  product     Int?
+  productId Int?
+  product   Product?    @relation(fields: [productId], references: [id])
 }
 
 model MediaDescriptionBlock {
@@ -57,7 +65,8 @@ model MediaDescriptionBlock {
   header      String?
   description String?
   media       String?
-  product     Int?
+  productId Int?
+  product   Product?    @relation(fields: [productId], references: [id])
 }
 
 model CharacteristicsDescriptionBlock {
@@ -66,7 +75,8 @@ model CharacteristicsDescriptionBlock {
   description    String?
   characteristics String?
   media          String?
-  product        Int?
+  productId Int?
+  product   Product?    @relation(fields: [productId], references: [id])
 }
 
 model ContactData {
@@ -79,7 +89,7 @@ model ContactData {
   email       String?
 
   user        User?
-  orders      ProductOnOrder[]
+  orders      Order[]
 }
 
 model ProductOnOrder {
@@ -89,8 +99,8 @@ model ProductOnOrder {
   productId  Int
   product    Product      @relation(fields: [productId], references: [id])
 
-  contactId  Int
-  contact    ContactData  @relation(fields: [contactId], references: [id])
+  // contactId  Int
+  // contact    ContactData  @relation(fields: [contactId], references: [id])
 
   deliveryId Int?
   delivery   Delivery?    @relation(fields: [deliveryId], references: [id])
@@ -104,7 +114,9 @@ model Product {
   media       String?
   description String?
   count       Int
-
+  characteristics CharacteristicsDescriptionBlock[]
+  mediaBlock MediaDescriptionBlock[]
+  descriptionBlock DescriptionBlock[]
   orders      ProductOnOrder[]
 }
 
