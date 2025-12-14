@@ -1,7 +1,7 @@
 {
   "name": "group-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "![demo picture](https://www.figma.com/design/hClVyiitXdrPCzTV12sMwK/Shop--Copy-?node-id=315-20184&t=DkOdQx5s4Ewa1blt-0)\r # REACTJS PROJECT: **SHOP HAPI HAPI**",
   "main": "index.js",
   "scripts": {
     "start": "ts-node main.ts",
@@ -12,13 +12,27 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^7.1.0",
     "envalid": "^8.1.1",
-    "express": "^5.1.0",
-    "prisma": "^7.1.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "express": "^5.1.0"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6"
-  }
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.2",
+    "@typescript-eslint/eslint-plugin": "^8.49.0",
+    "@typescript-eslint/parser": "^8.49.0",
+    "prisma": "^7.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ageev-Danilo/React-Shop.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Ageev-Danilo/React-Shop/issues"
+  },
+  "homepage": "https://github.com/Ageev-Danilo/React-Shop#readme"
 }
