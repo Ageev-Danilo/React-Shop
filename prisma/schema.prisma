@@ -131,3 +131,8 @@ model Delivery {
   orders ProductOnOrder[]
   user   User?
 }
+
+model Category {
+  id    Int     @id @default(autoincrement())
+  name  String
+}
