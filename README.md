@@ -136,6 +136,73 @@
 
 </details>
 
+### Каталог со всіма продуктами
+
+GET /products — отримання всіх товарів.
+
+<details>
+    <summary>Натисніть, щоб побачити всі помилки/коди метода GET</summary>
+
+    200 — Все OK  
+    Запит виконано успішно, сервер повертає список усіх продуктів.  
+    Postman response: Status 200 OK
+    Response body: [ 
+                        {
+                    "id": 1,
+                    "name": "Назва товару",
+                    "price": 500,
+                    "discount": 10,
+                    "media": "https://example.com/image.jpg",
+                    "description": "Детальний опис",
+                    "count": 100
+                        }
+                   ]
+
+    401 — Немає доступу  
+    Користувач не авторизований або не має прав доступу.  
+    Postman response: Status 401 Unauthorized
+
+    500 — Серверна помилка (Server error)  
+    Помилка на стороні сервера або бази даних.  
+    Postman response: Status 500 Internal Server Error
+
+</details>
+
+GET /products/:id — отримання інформації про конкретний товар.
+
+<details>
+<summary>Натисніть, щоб побачити всі помилки/коди метода GET</summary>
+
+    200 — Все OK  
+    Продукт знайдено, сервер повертає інформацію про продукт.  
+    Postman response: Status 200 OK
+    Response body: [ 
+                        {
+                    "id": 1,
+                    "name": "Назва товару",
+                    "price": 500,
+                    "discount": 10,
+                    "media": "https://example.com/image.jpg",
+                    "description": "Детальний опис",
+                    "count": 100
+                        }
+                   ]
+
+    401 — Немає доступу  
+    Користувач не має прав доступу.  
+    Postman response: Status 401 Unauthorized
+
+    404 — Продукт не знайдено (Not Found)  
+    Продукт із вказаним id відсутній у базі даних.  
+    Postman response: Status 404 Not Found
+
+    500 — Серверна помилка (Server error)  
+    Внутрішня помилка сервера.  
+    Postman response: Status 500 Internal Server Error
+
+</details>
+
+
 ### Робота команди
 
 В роботі проєкту брали участь:
@@ -143,3 +210,4 @@
 - [Ageev Danilo (Teamlead)](https://github.com/Ageev-Danilo)
 - [Artem Svistun](https://github.com/asvistun5)
 - [Daniil Kolomoec](https://github.com/Daniil-Kolomoec)
+- [Artem Krivoruchko](https://github.com/Artem653)
