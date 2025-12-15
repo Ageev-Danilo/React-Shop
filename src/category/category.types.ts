@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import { Category } from '../generated/prisma/client';
+import { Prisma } from '../generated/prisma/client';
+
+export type Category = Prisma.CategoryGetPayload<{}>
 
 export interface ErrorResponse {
     message?: string 
