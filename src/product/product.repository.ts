@@ -1,14 +1,14 @@
-import { prisma } from "../client/client";
+import { client } from "../client/client";
 import { ProductRepositoryContract } from "./product.types";
 
 
 export const productRepository: ProductRepositoryContract = {
   async getAll() {
-    return prisma.product.findMany()
+    return client.product.findMany()
   },
 
   async getById(id) {
-    return prisma.product.findUnique({
+    return client.product.findUnique({
       where: { id }
     })
   }
