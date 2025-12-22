@@ -1,17 +1,21 @@
 import { userRepository } from "./user.repository";
-import { UserCreateInput } from "./user.types";
 
 export const userService = {
-  async register(data: UserCreateInput) {
-    const existingUser = await userRepository.findByEmail(data.email);
-    if (existingUser) throw new Error("Email уже занят");
-    
-    return await userRepository.create(data);
-  },
+    async register(data: any) {
+        const existing = await userRepository.findByEmail(data.email);
+        if (existing) throw new Error("CONFLICT");
+        return await userRepository.create(data);
+    },
 
-  async login(email: string) {
-    const user = await userRepository.findByEmail(email);
-    if (!user) throw new Error("Пользователь не найден");
-    return user;
-  }
+    async login(email: string) {
+        const user = await userRepository.findByEmail(email);
+        if (!user) throw new Error("UNAUTHORIZED");
+        return user;
+    },
+
+    async updatePassword(email: string, password: string) {
+        const user = await userRepository.findByEmail(email);
+        if (!user) throw new Error("NOT_FOUND");
+        return await userRepository.updatePassword(email, password);
+    }
 };
