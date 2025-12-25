@@ -12,10 +12,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@prisma/client": "^6.17.1",
+    "@types/jsonwebtoken": "^9.0.10",
     "commonjs": "^0.0.1",
     "envalid": "^8.1.1",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
     "node": "^20.19.6",
     "prisma": "^6.17.1",
     "ts-node": "^10.9.2",
