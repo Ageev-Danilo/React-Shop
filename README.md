@@ -68,23 +68,6 @@
 1. - Додаток ділиться на окремі шари, де кожен шар відповідає за своє завдання. 
 2. - Таким чином, не відбувається втручання завдань в інші рівні. Кожна частина логічна та ізольована.
 
-## Наші endpoints
-
-<details>
-<summary>Натисніть, щоб побачити усі endpoints модулю Product</summary>
-    ·   GET /products — отримання всіх товарів.
-        Помилки/коди цього endpoint:
-            1.Отримання всіх товарів(200)
-            2.Немає доступу(401)
-            3.Серверна помилка(500)
-    ·   GET /products/:id — отримання інформації про конкретний товар.
-        Помилки/коди цього endpoint:
-            1.Отримання конкретного продукту(200)
-            2.Немає доступу(401)
-            3.Серверна помилка(500)
-            4.Продукт не знайдено(404)
-</details>
-
 ### Архітектура
 
 Архітектура додатка базується на принципах **MVC** (Model-View-Controller). Взаємодія між компонентами додатка виглядає наступним чином:
@@ -93,10 +76,153 @@
 2. **View (Представлення)** — оскільки в серверній частині проєкту відсутній фронтенд, представленням можуть бути дані, які API повертає клієнту.
 3. **Controller (Контролер)** — файли, що обробляють запити від клієнта (наприклад, створення нового замовлення) та відповідають клієнту.
 
-**API-мітки:**
+### API-мітки:
 
-- **POST /orders** — створення нового замовлення.
-- **GET /orders/:userId** — отримання всіх замовлень для користувача.
+<details>
+<summary>💻 User Module</summary>
+
+## 🔐 Auth Module
+
+### Login — POST `/login`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Successful login | `{ id: number, name: string, email: string }` |
+| 401 | Email is missing | Error message |
+| 401 | Password is missing | Error message |
+| 500 | Server error | Error message |
+
+---
+
+### Registration — POST `/register`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Successful registration | `{ id: number, name: string, email: string }` |
+| 401 | Passwords do not match | Error message |
+| 401 | Email is missing | Error message |
+| 401 | Password is missing | Error message |
+| 500 | Server error | Error message |
+
+---
+
+### Password Upload — PATCH `/password_upload`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Password successfully updated | `{ id: number, name: string, email: string }` |
+| 401 | Passwords do not match | Error message |
+| 401 | Email is missing | Error message |
+| 401 | Password is missing | Error message |
+| 500 | Server error | Error message |
+
+---
+
+## 👤 Cabinet
+
+---
+
+### 📇 Contact Information
+
+#### Get profile — GET `/users/profile`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | User profile data | `{ id: number, name: string, email: string, phone?: string }` |
+| 401 | Unauthorized | Error message |
+| 500 | Server error | Error message |
+
+#### Update profile — PATCH `/users/profile`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Profile successfully updated | `{ id: number, name: string, email: string, phone?: string }` |
+| 401 | Unauthorized | Error message |
+| 500 | Server error | Error message |
+
+---
+
+### 📦 Delivery
+
+#### Get products — GET `/users/orders`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | List of user products | `[{ id: number, productId: number, quantity: number, status: string }]` |
+| 401 | Unauthorized | Error message |
+| 500 | Server error | Error message |
+
+#### Delete product — DELETE `/users/orders/:orderId`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Product successfully deleted | Success message |
+| 401 | Unauthorized | Error message |
+| 404 | Order not found | Error message |
+| 500 | Server error | Error message |
+
+---
+
+### 🏠 Delivery Address
+
+#### Get addresses — GET `/users/addresses`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | List of delivery addresses | `[{ id: number, city: string, street: string, house: string }]` |
+| 401 | Unauthorized | Error message |
+| 500 | Server error | Error message |
+
+#### Update address — PATCH `/users/addresses`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Address successfully updated | `{ id: number, city: string, street: string, house: string }` |
+| 401 | Unauthorized | Error message |
+| 404 | Address not found | Error message |
+| 500 | Server error | Error message |
+
+#### Create address — POST `/users/addresses`
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Address successfully created | `{ id: number, city: string, street: string, house: string }` |
+| 401 | Unauthorized | Error message |
+| 500 | Server error | Error message |
+
+</details>
+
+<details>
+<summary>📦 Product Module</summary>
+
+#### GET "/products"
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Ok | `[{ id: number, name: string, price: number, categoryId: number }]` |
+| 500 | Server error | Error message |
+
+#### GET "/products/id"
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Ok | `{ id: number, name: string, price: number, categoryId: number }` |
+| 404 | Product not found | Error message |
+| 500 | Server error | Error message |
+
+</details>
+
+<details>
+<summary>🗂 Category Module</summary>
+
+#### GET "/categories"
+
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Ok | `[{ id: number, name: string }]` |
+| 500 | Server error | Error message |
+
+</details>
 
 **Взаємодія з базою даних:**
 - За допомогою **Prisma** додаток взаємодіє з базою даних, використовуючи моделі, описані у файлі `schema.prisma`.
@@ -136,73 +262,6 @@
 
 </details>
 
-### Каталог со всіма продуктами
-
-GET /products — отримання всіх товарів.
-
-<details>
-    <summary>Натисніть, щоб побачити всі помилки/коди метода GET</summary>
-
-    200 — Все OK  
-    Запит виконано успішно, сервер повертає список усіх продуктів.  
-    Postman response: Status 200 OK
-    Response body: [ 
-                        {
-                    "id": 1,
-                    "name": "Назва товару",
-                    "price": 500,
-                    "discount": 10,
-                    "media": "https://example.com/image.jpg",
-                    "description": "Детальний опис",
-                    "count": 100
-                        }
-                   ]
-
-    401 — Немає доступу  
-    Користувач не авторизований або не має прав доступу.  
-    Postman response: Status 401 Unauthorized
-
-    500 — Серверна помилка (Server error)  
-    Помилка на стороні сервера або бази даних.  
-    Postman response: Status 500 Internal Server Error
-
-</details>
-
-GET /products/:id — отримання інформації про конкретний товар.
-
-<details>
-<summary>Натисніть, щоб побачити всі помилки/коди метода GET</summary>
-
-    200 — Все OK  
-    Продукт знайдено, сервер повертає інформацію про продукт.  
-    Postman response: Status 200 OK
-    Response body: [ 
-                        {
-                    "id": 1,
-                    "name": "Назва товару",
-                    "price": 500,
-                    "discount": 10,
-                    "media": "https://example.com/image.jpg",
-                    "description": "Детальний опис",
-                    "count": 100
-                        }
-                   ]
-
-    401 — Немає доступу  
-    Користувач не має прав доступу.  
-    Postman response: Status 401 Unauthorized
-
-    404 — Продукт не знайдено (Not Found)  
-    Продукт із вказаним id відсутній у базі даних.  
-    Postman response: Status 404 Not Found
-
-    500 — Серверна помилка (Server error)  
-    Внутрішня помилка сервера.  
-    Postman response: Status 500 Internal Server Error
-
-</details>
-
-
 ### Робота команди
 
 В роботі проєкту брали участь:
@@ -210,4 +269,3 @@ GET /products/:id — отримання інформації про конкр�
 - [Ageev Danilo (Teamlead)](https://github.com/Ageev-Danilo)
 - [Artem Svistun](https://github.com/asvistun5)
 - [Daniil Kolomoec](https://github.com/Daniil-Kolomoec)
-- [Artem Krivoruchko](https://github.com/Artem653)
