@@ -1,3 +1,11 @@
+export interface User {
+    id: number;
+    email: string;
+    name?: string;
+    password?: string;
+}
+
+export type UserCreateInput = Omit<User, 'id'>;
 import { ContactData } from "../generated/prisma/client";
 import { Response, Request } from "express";
 import { Prisma } from "../generated/prisma";
