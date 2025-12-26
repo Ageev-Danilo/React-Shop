@@ -6,7 +6,7 @@ export const userController: UserControllerContract = {
   async register(req, res) {
     try {
       const user = await userService.register(req.body);
-      res.status(201).json(user); 
+      res.status(201).json({token: user}); 
     } catch (error: any) {
       res.status(409).json({ message: error.message }); 
     }
