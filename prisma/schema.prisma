@@ -19,16 +19,16 @@ datasource db {
 }
 
 model User {
-  id            Int          @id @default(autoincrement())
-  name          String
-  email         String       @unique
-  password      String
+ id            Int          @id @default(autoincrement())
+ name          String
+ email         String       @unique
+ password      String
 
-  contactDataId Int?         @unique
-  contactData   ContactData? @relation(fields: [contactDataId], references: [id])
+ contactDataId Int?         @unique
+ contactData   ContactData? @relation(fields: [contactDataId], references: [id])
 
-  addressId     Int?         @unique
-  address       Delivery?    @relation(fields: [addressId], references: [id])
+ addressId     Int?         @unique
+ address       Delivery?    @relation(fields: [addressId], references: [id])
 }
 
 // model Delivery {
@@ -46,7 +46,7 @@ model Order {
   comment        String?
   deliveryStatus String?
   payment        String?
-  // delivery       Delivery?
+  delivery       Delivery?
   totalPrice     Float?
   contactDataId Int?
   contactData   ContactData?    @relation(fields: [contactDataId], references: [id])
@@ -142,11 +142,12 @@ model Category {
   name  String
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+// model User {
+//   id        Int      @id @default(autoincrement())
+//   email     String   @unique
+//   name      String?
+//   password  String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   contactData ContactData?
+// }
