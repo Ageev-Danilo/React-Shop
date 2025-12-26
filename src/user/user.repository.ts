@@ -20,12 +20,6 @@ export const userRepository: UserRepositoryContract = {
     });
   },
 
-    async findByUserId(userId: string) {
-    client.contactData.findUnique({
-      where: { userId }
-    });
-  },
-
   async updateByUserId(userId: string, data: UpdateContactsDto) {
     client.contactData.upsert({
       where: { userId },

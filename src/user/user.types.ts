@@ -23,7 +23,8 @@ export type RegisterCredentials = {
 
 export type User = Prisma.UserGetPayload<{}>
 
-export interface UserCreateInput extends Omit<User, 'id'> {}
+// export interface UserCreateInput extends Omit<User, 'id'> {}
+export type UserCreateInput = Prisma.UserUncheckedCreateInput
 
 export interface UserProfileContacts {
   firstName: string;
@@ -53,9 +54,9 @@ export interface UserRepositoryContract {
 
 
 export interface UserServiceContract {
-  register(data: UserCreateInput): Promise<User>;
+  register(credentials: RegisterCredentials): Promise<string>;
 
-  login(email: string): Promise<User>;
+   login(credentials: LoginCredentials): Promise<string>;
 
   getContacts(userId: string): Promise<ContactData | null>;
 
@@ -67,9 +68,9 @@ export interface UserServiceContract {
 
 
 export interface UserControllerContract {
-  register(req: Request<void, UserAuthenticationResponce | ErrorResponce, RegisterCredentials, void>, res: Response<UserAuthenticationResponce | ErrorResponce>): Promise<void>;
+  register(req: Request<void, UserAuthenticationResponce | ErrorResponce, RegisterCredentials>, res: Response<UserAuthenticationResponce | ErrorResponce>): Promise<void>;
 
-  login(req: Request<void, UserAuthenticationResponce | ErrorResponce, LoginCredentials, void>, res: Response<UserAuthenticationResponce | ErrorResponce>): Promise<void>;
+  login(req: Request<void, UserAuthenticationResponce | ErrorResponce, LoginCredentials>, res: Response<UserAuthenticationResponce | ErrorResponce>): Promise<void>;
 
   getContacts(req: Request<void, ContactData | null, void, void>, res: Response<ContactData | null>): Promise<void>;
 

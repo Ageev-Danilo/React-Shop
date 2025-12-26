@@ -1,6 +1,7 @@
 import { userService } from "./user.service";
 import { UserControllerContract } from "./user.types";
-
+import { TokenExpiredError, verify } from "jsonwebtoken"
+import { ENV } from "../config/env"
 
 export const userController: UserControllerContract = {
   async register(req, res) {
@@ -16,7 +17,7 @@ export const userController: UserControllerContract = {
     try {
       const user = await userService.login(req.body.email);
 
-      res.status(200).json({ message: "Успешный вход", user }); 
+      res.status(200).json({token: user}); 
     } catch (error: any) {
       res.status(401).json({ message: "Ошибка авторизации" }); 
     }
