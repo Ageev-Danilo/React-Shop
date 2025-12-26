@@ -1,7 +1,9 @@
 import { userRepository } from "./user.repository";
 import { UserCreateInput } from "./user.types";
+import { UserServiceContract, UpdateContactsDto } from "./user.types";
 
-export const userService = {
+
+export const userService: UserServiceContract = {
   async register(data: UserCreateInput) {
     const existingUser = await userRepository.findByEmail(data.email);
     if (existingUser) throw new Error("Email уже занят");
@@ -16,10 +18,10 @@ export const userService = {
   },
 
   getContacts(userId: string) {
-    return contactsRepository.findByUserId(userId);
+    return userRepository.findByUserId(userId);
   },
 
   updateContacts(userId: string, data: UpdateContactsDto) {
-    return contactsRepository.updateByUserId(userId, data);
+    return userRepository.updateByUserId(userId, data);
   }
 };

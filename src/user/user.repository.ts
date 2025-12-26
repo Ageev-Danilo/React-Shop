@@ -1,7 +1,9 @@
 import { client } from "../client/client";
 import { UserCreateInput } from "./user.types";
+import { UserRepositoryContract, UpdateContactsDto } from "./user.types";
 
-export const userRepository = {
+
+export const userRepository: UserRepositoryContract = {
   async create(data: UserCreateInput) {
     return await client.user.create({ data });
   },
