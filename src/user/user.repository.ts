@@ -16,5 +16,19 @@ export const userRepository = {
     return await client.user.findUnique({
       where: { id },
     });
+  },
+
+    async findByUserId(userId: string) {
+    client.contactData.findUnique({
+      where: { userId }
+    });
+  },
+
+  async updateByUserId(userId: string, data: UpdateContactsDto) {
+    client.contactData.upsert({
+      where: { userId },
+      create: { userId, ...data },
+      update: data
+    });
   }
 };

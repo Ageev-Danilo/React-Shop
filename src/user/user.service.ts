@@ -13,5 +13,13 @@ export const userService = {
     const user = await userRepository.findByEmail(email);
     if (!user) throw new Error("Пользователь не найден");
     return user;
+  },
+
+  getContacts(userId: string) {
+    return contactsRepository.findByUserId(userId);
+  },
+
+  updateContacts(userId: string, data: UpdateContactsDto) {
+    return contactsRepository.updateByUserId(userId, data);
   }
 };

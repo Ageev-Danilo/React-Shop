@@ -6,5 +6,8 @@ const userRouter = Router();
 
 userRouter.post("/register", validateUserRequest, userController.register);
 userRouter.post("/login", validateUserRequest, userController.login);
+userRouter.get("/", validateUserRequest, userController.getContacts);
+userRouter.patch("/", validateUserRequest, userController.updateContacts);
+
 
 export default userRouter;

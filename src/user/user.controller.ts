@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { userService } from "./user.service";
 
+
 export const userController = {
   async register(req: Request, res: Response) {
     try {
@@ -19,5 +20,16 @@ export const userController = {
     } catch (error: any) {
       res.status(401).json({ message: "Ошибка авторизации" }); 
     }
+  },  
+  async getContacts(req: Request, res: Response) {
+    const userId = req.user.id;
+    const data = await userService.getContacts(userId);
+    res.json(data);
+  },
+
+  async updateContacts(req: Request, res: Response) {
+    const userId = req.user.id;
+    const data = await userService.updateContacts(userId, req.body);
+    res.json(data);
   }
 };
