@@ -38,9 +38,7 @@ export const userController: UserControllerContract = {
 
   async updateContacts(req, res) {
     try {
-       const data = req.body
-    const id = data.id
-    const contactsData = await userService.updateContacts(id, data);
+    const contactsData = await userService.updateContacts(res.locals.userId, req.body);
     res.json(contactsData);
     } catch (error) {
         if (error instanceof Error){

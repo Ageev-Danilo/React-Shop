@@ -4,10 +4,8 @@ import { validateUserRequest } from "../middlewares/validation.middleware";
 
 const userRouter = Router();
 
-userRouter.post("/register", validateUserRequest, userController.register);
-userRouter.post("/login", validateUserRequest, userController.login);
-userRouter.get("/", validateUserRequest, userController.getContacts);
-userRouter.patch("/", validateUserRequest, userController.updateContacts);
-
-
+userRouter.post("/register", userController.register);
+userRouter.post("/login", userController.login);
+userRouter.get("/", userController.getContacts);
+userRouter.patch("/", userController.updateContacts)
 export default userRouter;

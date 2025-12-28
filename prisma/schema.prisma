@@ -89,7 +89,7 @@ model ContactData {
   firstName   String
   secondName  String?
   patronymic  String?
-  birthDate   String?
+  birthDate   DateTime?
   phoneNumber String?
   email       String?
 

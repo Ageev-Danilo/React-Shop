@@ -24,9 +24,9 @@ export const UserRepository: UserRepositoryContract = {
     }
   },
 
-  async findById(id) {
+  async findByUserId(id) {
     try {
-      return await client.user.findUnique({
+      return await client.contactData.findUnique({
         where: { id },
       });
     } catch (error) {
@@ -37,7 +37,7 @@ export const UserRepository: UserRepositoryContract = {
 
   async updateByUserId(id, data: Contacts) {
     try {
-      client.contactData.upsert({
+      return await client.contactData.upsert({
       where: { id },
       create: { id, ...data },
       update: data

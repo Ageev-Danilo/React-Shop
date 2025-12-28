@@ -1,6 +1,6 @@
 import { UserRepository } from "./user.repository";
-import { UserCreateInput } from "./user.types";
-import { UserServiceContract, UpdateContactsDto } from "./user.types";
+import { Contacts, UserCreateInput } from "./user.types";
+import { UserServiceContract, } from "./user.types";
 import { compare, hash } from "bcryptjs"
 import { sign } from "jsonwebtoken"
 import { ENV } from "../config/env"
@@ -32,11 +32,16 @@ export const userService: UserServiceContract = {
     return token;
   },
 
-  getContacts(id: string) {
-    return UserRepository.findById(id);
+  async getContacts(id: number) {
+    const user = await UserRepository.findByUserId(id);
+     if (!user) throw new Error("Пользователь не найден");
+     return user
+
   },
 
-  updateContacts(id: string, data: UpdateContactsDto) {
-    return UserRepository.updateByUserId(id, data);
+  async updateContacts(id: number, data: Contacts) {
+    const user = await UserRepository.updateByUserId(id, data);
+     if (!user) throw new Error("Пользователь не найден");
+     return user
   }
 };
