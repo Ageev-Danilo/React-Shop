@@ -1,30 +1,50 @@
 import { client } from "../client/client";
-import { UserCreateInput } from "./user.types";
-import { UserRepositoryContract, UpdateContactsDto } from "./user.types";
+import { Contacts, UserCreateInput } from "./user.types";
+import { UserRepositoryContract,  } from "./user.types";
 
 
-export const userRepository: UserRepositoryContract = {
-  async create(data: UserCreateInput) {
-    return await client.user.create({ data });
+export const UserRepository: UserRepositoryContract = {
+  async createUser(data: UserCreateInput) {
+    try {
+      return await client.user.create({ data });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   },
 
-  async findByEmail(email: string) {
-    return await client.user.findUnique({
-      where: { email },
-    });
+  async findByEmail(email) {
+    try {
+      return await client.user.findUnique({
+        where: { email },
+      });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   },
 
-  async findById(id: number) {
-    return await client.user.findUnique({
+  async findById(id) {
+    try {
+      return await client.user.findUnique({
+        where: { id },
+      });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  },
+
+  async updateByUserId(id, data: Contacts) {
+    try {
+      client.contactData.upsert({
       where: { id },
-    });
-  },
-
-  async updateByUserId(userId: string, data: UpdateContactsDto) {
-    client.contactData.upsert({
-      where: { userId },
-      create: { userId, ...data },
+      create: { id, ...data },
       update: data
     });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 };

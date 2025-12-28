@@ -46,7 +46,7 @@ model Order {
   comment        String?
   deliveryStatus String?
   payment        String?
-  delivery       Delivery?
+  // delivery       Delivery?
   totalPrice     Float?
   contactDataId Int?
   contactData   ContactData?    @relation(fields: [contactDataId], references: [id])
@@ -89,7 +89,7 @@ model ContactData {
   firstName   String
   secondName  String?
   patronymic  String?
-  birthDate   DateTime?
+  birthDate   String?
   phoneNumber String?
   email       String?
 

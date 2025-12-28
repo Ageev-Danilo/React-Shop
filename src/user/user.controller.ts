@@ -15,7 +15,8 @@ export const userController: UserControllerContract = {
 
   async login(req, res) {
     try {
-      const user = await userService.login(req.body.email);
+      const data = req.body
+      const user = await userService.login(data);
 
       res.status(200).json({token: user}); 
     } catch (error: any) {
@@ -23,14 +24,29 @@ export const userController: UserControllerContract = {
     }
   },  
   async getContacts(req, res) {
-    const userId = req.user.id;
-    const data = await userService.getContacts(userId);
-    res.json(data);
+    try {
+    res.status(200).json(await userService.getContacts(res.locals.userId));
+    // res.json(contactsData);
+    
+    } catch (error) {
+        if (error instanceof Error){
+          res.status(500).json({ message: error.message });
+        }
+    }
+  
   },
 
   async updateContacts(req, res) {
-    const userId = req.user.id;
-    const data = await userService.updateContacts(userId, req.body);
-    res.json(data);
+    try {
+       const data = req.body
+    const id = data.id
+    const contactsData = await userService.updateContacts(id, data);
+    res.json(contactsData);
+    } catch (error) {
+        if (error instanceof Error){
+           res.status(500).json({ message: error.message });
+        }
+    }
+   
   }
 };

@@ -1,4 +1,4 @@
-import { userRepository } from "./user.repository";
+import { UserRepository } from "./user.repository";
 import { UserCreateInput } from "./user.types";
 import { UserServiceContract, UpdateContactsDto } from "./user.types";
 import { compare, hash } from "bcryptjs"
@@ -7,8 +7,8 @@ import { ENV } from "../config/env"
 import { StringValue } from 'ms'
 
 export const userService: UserServiceContract = {
-  async register(data: UserCreateInput) {
-    const existingUser = await userRepository.findByEmail(data.email);
+  async register(credentials) {
+    const existingUser = await UserRepository.findByEmail(credentials.email);
     if (existingUser) throw new Error("Email уже занят");
       const hashedPassword = await hash(credentials.password, 10)
 
@@ -20,20 +20,23 @@ export const userService: UserServiceContract = {
         const token = sign({ id: newUser.id }, ENV.JWT_SECRET_KEY, { expiresIn: ENV.JWT_EXPIRES_IN as StringValue })
         return token
     
-    return await userRepository.create(data);
+    // return await UserRepository.createUser(credentials);
   },
 
-  async login(email: string) {
-    const user = await userRepository.findByEmail(email);
+  async login(credentials) {
+    const user = await UserRepository.findByEmail(credentials.email);
     if (!user) throw new Error("Пользователь не найден");
-    return user;
+    const isPasswordValid = await compare(credentials.password, user.password);
+    if (!isPasswordValid) throw new Error("Неверный пароль");
+    const token = sign({ id: user.id }, ENV.JWT_SECRET_KEY, { expiresIn: ENV.JWT_EXPIRES_IN as StringValue });
+    return token;
   },
 
-  getContacts(userId: number) {
-    return userRepository.findById(userId);
+  getContacts(id: string) {
+    return UserRepository.findById(id);
   },
 
-  updateContacts(userId: string, data: UpdateContactsDto) {
-    return userRepository.updateByUserId(userId, data);
+  updateContacts(id: string, data: UpdateContactsDto) {
+    return UserRepository.updateByUserId(id, data);
   }
 };

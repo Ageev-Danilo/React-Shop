@@ -36,20 +36,18 @@ export interface UserProfileContacts {
 }
 
 export interface UpdateContactsDto extends Partial<UserProfileContacts> {}
+export type Contacts = Prisma.ContactDataGetPayload<{omit:{id: true}}>
 
 export interface UserRepositoryContract {
-  create(data: UserCreateInput): Promise<User>;
+  createUser(data: UserCreateInput): Promise<User>;
 
   findByEmail(email: string): Promise<User | null>;
 
   findById(id: number): Promise<User | null>;
 
-  findByUserId(userId: string): Promise<ContactData | null>;
+  findByUserId(id: number): Promise<ContactData | null>;
 
-  updateByUserId(
-    userId: string,
-    data: UpdateContactsDto
-  ): Promise<ContactData>;
+  updateByUserId(id: number, data: Contacts): Promise<ContactData>;
 }
 
 
@@ -58,12 +56,9 @@ export interface UserServiceContract {
 
    login(credentials: LoginCredentials): Promise<string>;
 
-  getContacts(userId: string): Promise<ContactData | null>;
+  getContacts(userId: string): Promise<ContactData>;
 
-  updateContacts(
-    userId: string,
-    data: UpdateContactsDto
-  ): Promise<ContactData>;
+  updateContacts(userId: string,data: UpdateContactsDto): Promise<ContactData>;
 }
 
 
@@ -72,7 +67,7 @@ export interface UserControllerContract {
 
   login(req: Request<void, UserAuthenticationResponce | ErrorResponce, LoginCredentials>, res: Response<UserAuthenticationResponce | ErrorResponce>): Promise<void>;
 
-  getContacts(req: Request<void, ContactData | null, void, void>, res: Response<ContactData | null>): Promise<void>;
+  getContacts(req: Request<void, ContactData | ErrorResponce, void, void, {userId: number}>, res: Response<Contacts | ErrorResponce, {userId: number}>): Promise<void>;
 
-  updateContacts(req: Request<void, ContactData, ContactData, void>, res: Response<ContactData>): Promise<void>;
+  updateContacts(req: Request<void, ContactData | ErrorResponce, ContactData, void>, res: Response<ContactData | ErrorResponce>): Promise<void>;
 }
