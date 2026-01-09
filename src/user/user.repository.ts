@@ -1,38 +1,31 @@
 import { client } from "../client/client";
-import { UserCreateInput } from "./user.types";
-import { UserRepositoryContract, UpdateContactsDto } from "./user.types";
+import { Contacts, UserCreateInput, UserRepositoryContract } from "./user.types";
 
-export const userRepository = {
-    async findByEmail(email: string) {
-        return await client.user.findUnique({ where: { email } });
-    },
-
-export const userRepository: UserRepositoryContract = {
-  async create(data: UserCreateInput) {
+export const UserRepository: UserRepositoryContract = {
+  async createUser(data: UserCreateInput) {
     return await client.user.create({ data });
   },
 
-    async create(data: UserCreateInput) {
-        return await client.user.create({ data });
-    },
+  async findByEmail(email: string) {
+    return await client.user.findUnique({ where: { email } });
+  },
 
-    async updatePassword(email: string, newPassword: string) {
-        return await client.user.update({
-            where: { email },
-            data: { password: newPassword }
-        });
-    }
-  async findById(id: number) {
-    return await client.user.findUnique({
+  async findByUserId(id: number) {
+    return await client.contactData.findUnique({ where: { id } });
+  },
+
+  async updateByUserId(id: number, data: Contacts) {
+    return await client.contactData.upsert({
       where: { id },
+      create: { id, ...data },
+      update: data
     });
   },
 
-  async updateByUserId(userId: string, data: UpdateContactsDto) {
-    client.contactData.upsert({
-      where: { userId },
-      create: { userId, ...data },
-      update: data
+  async updatePassword(email: string, newPassword: string) {
+    return await client.user.update({
+      where: { email },
+      data: { password: newPassword }
     });
   }
 };

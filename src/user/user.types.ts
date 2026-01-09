@@ -1,86 +1,36 @@
-export interface User {
-    id: number;
-    email: string;
-    name?: string;
-    password?: string;
-}
-
-export type UserCreateInput = Omit<User, 'id'>;
-import { ContactData } from "../generated/prisma/client";
+import { ContactData, User as PrismaUser } from "../generated/prisma/client";
 import { Response, Request } from "express";
 import { Prisma } from "../generated/prisma";
 
+export interface UserAuthenticationResponce { token: string }
+export interface ErrorResponce { message?: string }
 
-export interface UserAuthenticationResponce {
-  token: string
-}
-
-export interface ErrorResponce {
-  message?: string
-}
-
-export type LoginCredentials = {
-    email: string
-    password: string
-}
-export type RegisterCredentials = {
-    email: string
-    password: string
-    name: string
-}
-
+export type LoginCredentials = { email: string; password: string }
+export type RegisterCredentials = { email: string; password: string; name: string }
 export type User = Prisma.UserGetPayload<{}>
-
-// export interface UserCreateInput extends Omit<User, 'id'> {}
 export type UserCreateInput = Prisma.UserUncheckedCreateInput
-
-export interface UserProfileContacts {
-  firstName: string;
-  lastName: string;
-  middleName?: string;
-  birthDate?: string;
-  phone: string;
-  email: string;
-}
-
-export interface UpdateContactsDto extends Partial<UserProfileContacts> {}
+export type Contacts = Prisma.ContactDataGetPayload<{omit:{id: true}}>
 
 export interface UserRepositoryContract {
-  create(data: UserCreateInput): Promise<User>;
-
+  createUser(data: UserCreateInput): Promise<User>;
   findByEmail(email: string): Promise<User | null>;
-
-  findById(id: number): Promise<User | null>;
-
-  findByUserId(userId: string): Promise<ContactData | null>;
-
-  updateByUserId(
-    userId: string,
-    data: UpdateContactsDto
-  ): Promise<ContactData>;
+  findByUserId(id: number): Promise<ContactData | null>;
+  updateByUserId(id: number, data: Contacts): Promise<ContactData>;
+  updatePassword(email: string, newPassword: string): Promise<User>; // Твій метод
 }
-
 
 export interface UserServiceContract {
   register(credentials: RegisterCredentials): Promise<string>;
-
-   login(credentials: LoginCredentials): Promise<string>;
-
-  getContacts(userId: string): Promise<ContactData | null>;
-
-  updateContacts(
-    userId: string,
-    data: UpdateContactsDto
-  ): Promise<ContactData>;
+  login(credentials: LoginCredentials): Promise<string>;
+  getContacts(userId: number): Promise<ContactData>;
+  updateContacts(userId: number, data: Contacts): Promise<ContactData>;
+  updatePassword(email: string, password: string): Promise<User>; // Твій метод
 }
-
 
 export interface UserControllerContract {
   register(req: Request<void, UserAuthenticationResponce | ErrorResponce, RegisterCredentials>, res: Response<UserAuthenticationResponce | ErrorResponce>): Promise<void>;
-
   login(req: Request<void, UserAuthenticationResponce | ErrorResponce, LoginCredentials>, res: Response<UserAuthenticationResponce | ErrorResponce>): Promise<void>;
-
-  getContacts(req: Request<void, ContactData | null, void, void>, res: Response<ContactData | null>): Promise<void>;
-
-  updateContacts(req: Request<void, ContactData, ContactData, void>, res: Response<ContactData>): Promise<void>;
+  getContacts(req: Request<void, ContactData | ErrorResponce, void, void, {userId: number}>, res: Response<ContactData | ErrorResponce, {userId: number}>): Promise<void>;
+  updateContacts(req: Request<void, ContactData | ErrorResponce, Contacts, void, {userId: number}>, res: Response<ContactData | ErrorResponce, {userId: number}>): Promise<void>;
+  passwordUpload(req: Request<void, {message: string} | ErrorResponce, any>, res: Response<{message: string} | ErrorResponce>): Promise<void>; // Твій метод
 }

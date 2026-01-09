@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-export const validateAuth = (req: Request, res: Response, next: NextFunction) => {
+export const validateUserRequest = (req: Request, res: Response, next: NextFunction) => {
   const { email, password, confirmPassword } = req.body;
 
   if (!email || !email.includes("@")) {
