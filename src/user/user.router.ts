@@ -2,12 +2,12 @@ import { Router } from "express";
 import { userController } from "./user.controller";
 import { validateUserRequest } from "../middlewares/validation.middleware";
 
-const userRouter = Router();
+export const userRouter = Router();
 
-userRouter.post("/register", validateUserRequest, userController.register);
-userRouter.post("/login", validateUserRequest, userController.login);
-userRouter.patch("/password_upload", validateUserRequest, userController.passwordUpload);
-userRouter.get("/", userController.getContacts);
-userRouter.patch("/", userController.updateContacts);
+userRouter.post("/register",  userController.register);
+userRouter.post("/login", userController.login);
+userRouter.patch("/password_upload", userController.passwordUpload);
+userRouter.get("/users/profile", userController.getContacts);
+userRouter.patch("/users/profile", userController.updateContacts);
 
-export default userRouter;
+// export default userRouter;
