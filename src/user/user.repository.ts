@@ -1,50 +1,31 @@
 import { client } from "../client/client";
-import { Contacts, UserCreateInput } from "./user.types";
-import { UserRepositoryContract,  } from "./user.types";
-
+import { Contacts, UserCreateInput, UserRepositoryContract } from "./user.types";
 
 export const UserRepository: UserRepositoryContract = {
   async createUser(data: UserCreateInput) {
-    try {
-      return await client.user.create({ data });
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    return await client.user.create({ data });
   },
 
-  async findByEmail(email) {
-    try {
-      return await client.user.findUnique({
-        where: { email },
-      });
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+  async findByEmail(email: string) {
+    return await client.user.findUnique({ where: { email } });
   },
 
-  async findByUserId(id) {
-    try {
-      return await client.contactData.findUnique({
-        where: { id },
-      });
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+  async findByUserId(id: number) {
+    return await client.contactData.findUnique({ where: { id } });
   },
 
-  async updateByUserId(id, data: Contacts) {
-    try {
-      return await client.contactData.upsert({
+  async updateByUserId(id: number, data: Contacts) {
+    return await client.contactData.upsert({
       where: { id },
       create: { id, ...data },
       update: data
     });
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+  },
+
+  async updatePassword(email: string, newPassword: string) {
+    return await client.user.update({
+      where: { email },
+      data: { password: newPassword }
+    });
   }
 };
