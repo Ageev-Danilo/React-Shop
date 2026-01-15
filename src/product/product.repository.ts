@@ -11,5 +11,7 @@ export const productRepository: ProductRepositoryContract = {
     return client.product.findUnique({
       where: { id }
     })
-  }
+  }, 
+  async getSuggestions(popularProducts, newProducts, limitPerPage, offsetPage) {
+      return client.product.findMany({})
 }

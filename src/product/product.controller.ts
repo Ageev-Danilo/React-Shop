@@ -26,5 +26,16 @@ export const productController: ProductControllerContract = {
     } catch (err) {
       res.status(500).json({ message: "Server error" })
     }
+  },
+  async getSuggestions (req, res){
+    try {
+      const popularProducts  =req.query.popularProducts
+      const newProducts  = req.query.newProducts
+      const limit  =req.query.limitPerPage
+      const offset  =req.query.offsetPage
+    } catch (error) {
+         console.log(error)
+            res.status(500).json("Unhandled Error")
+    }
   }
 }

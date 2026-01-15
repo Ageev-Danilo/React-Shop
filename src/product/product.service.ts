@@ -9,5 +9,7 @@ export const productService: ProductServiceContract = {
 
   async getById(id) {
     return productRepository.getById(id)
-  }
+  },
+  async getSuggestions(popularProducts, newProducts, limitPerPage, offsetPage) {
+    return productRepository.getSuggestions(popularProducts, newProducts, limitPerPage, offsetPage)
 }

@@ -123,6 +123,8 @@ model Product {
   mediaBlock MediaDescriptionBlock[]
   descriptionBlock DescriptionBlock[]
   orders      ProductOnOrder[]
+  popular     Boolean            @default(false)
+  new         Boolean            @default(false)
 }
 
 model Delivery {
