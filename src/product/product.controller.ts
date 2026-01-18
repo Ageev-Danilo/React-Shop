@@ -31,7 +31,7 @@ export const productController: ProductControllerContract = {
     }
   },
 
-  async getSuggestions(req, res) {
+  async getSuggestions(req, res) { 
     try {
       const isPopular = req.query.popularProducts === 'true';
       const isNew = req.query.newProducts === 'true';
