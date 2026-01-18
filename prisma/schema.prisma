@@ -124,7 +124,7 @@ model Product {
   descriptionBlock DescriptionBlock[]
   orders      ProductOnOrder[]
   popular     Boolean            @default(false)
-  new         Boolean            @default(false)
+  isNew         Boolean            @default(false)
 }
 
 model Delivery {
