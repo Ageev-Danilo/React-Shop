@@ -1,6 +1,5 @@
-import { Request, Response } from "express";
-import { productService } from "./product.service";
 import { ProductControllerContract } from "./product.types";
+import { productService } from "./product.service";
 
 export const productController: ProductControllerContract = {
   async getAll(req, res) {
@@ -46,6 +45,7 @@ export const productController: ProductControllerContract = {
       }
 
       const products = await productService.getSuggestions(isPopular, isNew, limit, offset);
+      
       res.json(products);
       
     } catch (error) {

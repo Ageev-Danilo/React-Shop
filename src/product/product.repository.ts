@@ -13,24 +13,26 @@ export const productRepository: ProductRepositoryContract = {
   }, 
 
   async getSuggestions(popularProducts, newProducts, limit, offset) {
-    let orderBy: any = {};
+    let orderBy: any = { id: 'asc' };
+    let whereClause: any = {};
 
     if (newProducts) {
-      orderBy = { id: 'desc' };
+      whereClause = { new: true };
+      orderBy = { id: 'desc' }; 
     } else if (popularProducts) {
+      whereClause = { popular: true };
       orderBy = { 
         orders: { 
           _count: 'desc' 
         } 
       };
-    } else {
-      orderBy = { id: 'asc' };
     }
 
     return client.product.findMany({
-      take: limit,  
+      take: limit,   
       skip: offset,  
-      orderBy: orderBy,
+      where: whereClause,
+      orderBy: orderBy,  
     });
   }
 };
