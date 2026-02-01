@@ -3,6 +3,8 @@ import { productRouter } from "./product/product.router";
 import { categoryRouter } from './category/category.router';
 import { mailRouter } from "./main/mail.router";
 import {userRouter} from "./user/user.router"
+import { config } from "dotenv"
+
 
 const app: express.Express = express()
 
