@@ -7,7 +7,6 @@ export interface Category{
     name: string
 }
 
-// export type Category = Prisma.CategoryGetPayload<{}>
 export interface ErrorResponse {
     message?: string 
 }

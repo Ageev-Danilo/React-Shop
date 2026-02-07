@@ -18,18 +18,21 @@ export interface ProductControllerContract {
         }>,
         res: Response<Product[] | ErrorResponse>
     ) => void;
+    getSame: (req: Request<{id: number}, Product[] | ErrorResponse, void, void>, res: Response<Product[] | ErrorResponse>) => void;
 }
 
 export interface ProductServiceContract {
     getAll: () => Promise<Product[]>
     getById: (id: number) => Promise<Product | null>
     getSuggestions: (popular: boolean, isNew: boolean, limit: number, offset: number) => Promise<Product[]>
+    getSame: (id: number) => Promise<Product[]>
 }
 
 export interface ProductRepositoryContract {
     getAll: () => Promise<Product[]>
     getById: (id: number) => Promise<Product | null>
     getSuggestions: (popular: boolean, isNew: boolean, limit: number, offset: number) => Promise<Product[]>
+    getSame: (id: number) => Promise<Product[]>
 }
 
 export interface ErrorResponse {

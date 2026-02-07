@@ -62,5 +62,18 @@ export const productController: ProductControllerContract = {
             console.error(error);
             res.status(500).json({ message: "Unhandled Error" });
         }
+    },
+    async getSame(req, res) {
+        try {
+            const product = await productService.getById(req.params.id)
+            if (!product) {
+                return res.status(404).json({ message: "Not found" });
+            }
+            const products = await productService.getAll();
+            const sameProducts = await productService.getSame();
+            res.json(sameProducts);
+        } catch (err) {
+            res.status(500).json({ message: "Server error" });
+        }
     }
 };
