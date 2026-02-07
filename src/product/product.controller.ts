@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { productService } from "./product.service";
 import { ProductControllerContract, ErrorResponse } from "./product.types";
 
-
 export const productController: ProductControllerContract = {
     async getAll(req, res) {
         try {
@@ -63,14 +62,17 @@ export const productController: ProductControllerContract = {
             res.status(500).json({ message: "Unhandled Error" });
         }
     },
+
     async getSame(req, res) {
         try {
-            const product = await productService.getById(req.params.id)
+            const id = Number(req.params.id);
+
+            const product = await productService.getById(id);
             if (!product) {
                 return res.status(404).json({ message: "Not found" });
             }
-            const products = await productService.getAll();
-            const sameProducts = await productService.getSame();
+
+            const sameProducts = await productService.getSame(product.id);
             res.json(sameProducts);
         } catch (err) {
             res.status(500).json({ message: "Server error" });

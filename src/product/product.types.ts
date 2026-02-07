@@ -18,7 +18,7 @@ export interface ProductControllerContract {
         }>,
         res: Response<Product[] | ErrorResponse>
     ) => void;
-    getSame: (req: Request<{id: number}, Product[] | ErrorResponse, void, void>, res: Response<Product[] | ErrorResponse>) => void;
+    getSame: (req: Request<{id: string}, Product[] | ErrorResponse, void, void>, res: Response<Product[] | ErrorResponse>) => void;
 }
 
 export interface ProductServiceContract {
