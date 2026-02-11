@@ -13,12 +13,7 @@ export const productRepository: ProductRepositoryContract = {
         });
     },
 
-    async getSuggestions(
-        popular: boolean,
-        isNew: boolean,
-        limit: number,
-        offset: number
-    ) {
+    async getSuggestions(popular, isNew, limit, offset) {
         return client.product.findMany({
             take: limit,
             skip: offset,
