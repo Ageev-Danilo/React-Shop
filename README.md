@@ -210,6 +210,22 @@
 | 404 | Product not found | Error message |
 | 500 | Server error | Error message |
 
+#### GET "/products/popular"
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Popular products | `[{ id: number, name: string, price: number }]` |
+
+#### GET "/products/new"
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | New items | `[{ id: number, name: string, price: number }]` |
+
+#### GET "/products/:id/similar"
+| Status code | Description | Response |
+|------------|-------------|----------|
+| 200 | Similar products | `[{ id: number, name: string, price: number }]` |
+| 404 | Product not found| Error message |
+
 </details>
 
 <details>
