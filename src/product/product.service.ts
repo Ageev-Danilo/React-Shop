@@ -22,13 +22,17 @@ export const productService: ProductServiceContract = {
         }
 
         const allProducts = await productRepository.getAll();
+        const firstWord = product.name?.split(" ")[0].toLowerCase() ?? "";
 
         const sameProducts = allProducts.filter((p) => {
+            if (!p || !p.name) return false;
+        
             return (
                 p.id !== product.id &&
-                p.name.toLowerCase().startsWith(product.name.toLowerCase())
+                p.name.toLowerCase().includes(firstWord)
             );
         });
+
 
         return sameProducts;
     }
