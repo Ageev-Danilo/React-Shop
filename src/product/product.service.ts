@@ -21,11 +21,11 @@ export const productService: ProductServiceContract = {
 
         const allProducts = await productRepository.getAll();
 
-        const sameProducts = allProducts.filter(p => p.name === product.name 
-            && p.id !== id 
-            && p.name.toLowerCase().includes(product.name.split(" ")[0]!.toLowerCase())
+        const sameProducts = allProducts.filter(p => //p.name === product.name 
+             p.id !== product.id 
+             && p.name.toLowerCase().includes(product.name.split(" ")[0]!.toLowerCase())
         );
-
+        console.log(sameProducts)
         return sameProducts;
     }
 };
