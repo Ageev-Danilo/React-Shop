@@ -17,17 +17,15 @@ export const productService: ProductServiceContract = {
     async getSame(id) {
         const product = await productRepository.getById(id);
 
-        if (!product) {
-            return [];
-        }
+        if (!product?.name) return [];
 
         const allProducts = await productRepository.getAll();
 
-        if (!product.categoryId || !p.categoryId) return;
-
-        return allProducts.filter((p) =>
-            p.id !== product.id &&
-            p.categoryId === product.categoryId
+        const sameProducts = allProducts.filter(p => p.name === product.name 
+            && p.id !== id 
+            && p.name.toLowerCase().includes(product.name.split(" ")[0]!.toLowerCase())
         );
+
+        return sameProducts;
     }
 };
