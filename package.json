@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node ./src/server.ts",
     "gen": "npx prisma generate",
-    "migrate": "npx prisma migrate dev",
+    "mig": "npx prisma migrate dev",
+    "art": "git add . && git commit -m 'update' && git push origin Artem",
     "format": "npx prisma format"
   },
   "author": "",
