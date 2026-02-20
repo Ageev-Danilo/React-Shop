@@ -16,23 +16,18 @@ export const productService: ProductServiceContract = {
 
     async getSame(id) {
         const product = await productRepository.getById(id);
-        console.log(product)
 
-        //  if (!product) {
-        //      return [];
-        //  }
+        if (!product) {
+            return [];
+        }
 
         const allProducts = await productRepository.getAll();
-        // console.log(allProducts)
 
-        const sameProducts = allProducts.filter((p) => {
-            return (
-                p.id !== product!.id &&
-                p.name.toLowerCase().startsWith(product!.name.toLowerCase())
-            );
-        });
-        console.log(sameProducts)
+        if (!product.categoryId || !p.categoryId) return;
 
-        return sameProducts;
+        return allProducts.filter((p) =>
+            p.id !== product.id &&
+            p.categoryId === product.categoryId
+        );
     }
 };
