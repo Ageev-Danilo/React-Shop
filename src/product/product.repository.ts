@@ -20,8 +20,7 @@ export const productRepository: ProductRepositoryContract = {
             where: {
                 ...(popular ? { popular: true } : {}),
                 ...(isNew ? { isNew: true } : {})
-            },
-            orderBy: { id: "asc" }
+            }
         });
     },
 

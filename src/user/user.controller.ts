@@ -7,6 +7,7 @@ export const userController: UserControllerContract = {
       const token = await userService.register(req.body);
       res.status(201).json({ token });
     } catch (error: any) {
+      console.log(error.message)
       res.status(409).json({ message: error.message });
     }
   },

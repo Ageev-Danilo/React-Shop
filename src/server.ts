@@ -7,15 +7,17 @@ import cors from "cors"
 
 const app: express.Express = express()
 
+app.use(cors({
+    origin: ["http://localhost:3000"]
+}))
+
 app.use(express.json())
 app.use(productRouter)
 app.use("/users/profile", categoryRouter)
 app.use("/mail", mailRouter);
 app.use(userRouter)
 
-app.use(cors({
-    origin: ["http://localhost:3000"]
-}))
+
 
 app.listen(8000, 'localhost', () => {
     console.log('http://localhost:8000')

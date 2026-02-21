@@ -23,6 +23,7 @@ model User {
  name          String
  email         String       @unique
  password      String
+ confirmPassword String
 
  contactDataId Int?         @unique
  contactData   ContactData? @relation(fields: [contactDataId], references: [id])

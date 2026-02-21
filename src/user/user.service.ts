@@ -11,7 +11,7 @@ export const userService: UserServiceContract = {
     if (existingUser) throw new Error("Email уже занят");
     
     const hashedPassword = await hash(credentials.password, 10);
-    const newUser = await UserRepository.createUser({ ...credentials, password: hashedPassword });
+    const newUser = await UserRepository.createUser({ ...credentials, password: hashedPassword , confirmPassword: hashedPassword});
     
     return sign({ id: newUser.id }, ENV.JWT_SECRET_KEY, { expiresIn: ENV.JWT_EXPIRES_IN as StringValue });
   },
