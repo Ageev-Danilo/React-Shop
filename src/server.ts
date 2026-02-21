@@ -14,7 +14,7 @@ app.use("/mail", mailRouter);
 app.use(userRouter)
 
 app.use(cors({
-    origin: ["http://localhost:3000"]
+    origin: ["http://localhost:3000/register"]
 }))
 
 app.listen(8000, 'localhost', () => {
