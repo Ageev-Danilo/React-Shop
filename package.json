@@ -1,34 +1,35 @@
 {
-  "name": "group-project",
-  "version": "1.0.0",
-  "description": "![demo picture](https://www.figma.com/design/hClVyiitXdrPCzTV12sMwK/Shop--Copy-?node-id=315-20184&t=DkOdQx5s4Ewa1blt-0)\r # REACTJS PROJECT: **SHOP HAPI HAPI**",
-  "main": "index.js",
-  "scripts": {
-    "start": "ts-node ./src/server.ts",
-    "gen": "npx prisma generate",
-    "mig": "npx prisma migrate dev",
-    "art": "git add . && git commit -m 'update' && git push origin Artem",
-    "format": "npx prisma format"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@emailjs/browser": "^4.4.1",
-    "@prisma/client": "6.17.1",
-    "@types/jsonwebtoken": "^9.0.10",
-    "bcryptjs": "^3.0.3",
-    "commonjs": "^0.0.1",
-    "envalid": "^8.1.1",
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.3",
-    "node": "^20.19.6",
-    "prisma": "6.17.1",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.0.0"
-  }
+    "name": "group-project",
+    "version": "1.0.0",
+    "description": "![demo picture](https://www.figma.com/design/hClVyiitXdrPCzTV12sMwK/Shop--Copy-?node-id=315-20184&t=DkOdQx5s4Ewa1blt-0)\r # REACTJS PROJECT: **SHOP HAPI HAPI**",
+    "main": "index.js",
+    "scripts": {
+        "start": "ts-node ./src/server.ts",
+        "gen": "npx prisma generate",
+        "mig": "npx prisma migrate dev",
+        "art": "git add . && git commit -m 'update' && git push origin Artem",
+        "fmt": "npx prisma format"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@emailjs/browser": "^4.4.1",
+        "@prisma/client": "6.17.1",
+        "@types/jsonwebtoken": "^9.0.10",
+        "bcryptjs": "^3.0.3",
+        "commonjs": "^0.0.1",
+        "envalid": "^8.1.1",
+        "express": "^5.1.0",
+        "jsonwebtoken": "^9.0.3",
+        "node": "^20.19.6",
+        "prisma": "6.17.1",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.6",
+        "@types/node": "^25.0.0",
+        "prettier": "^3.8.1"
+    }
 }
