@@ -8,6 +8,8 @@
         "gen": "npx prisma generate",
         "mig": "npx prisma migrate dev",
         "art": "git add . && git commit -m 'update' && git push origin Artem",
+        "pub": "node src/scripts/push.js",
+        "user": "node src/seeds/user.ts",
         "fmt": "npx prisma format"
     },
     "author": "",
