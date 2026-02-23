@@ -5,9 +5,15 @@ import { mailRouter } from "./main/mail.router";
 import {userRouter} from "./user/user.router"
 import { emailRouter } from './password-reset/email.router';
 import { config } from "dotenv"
+import cors from "cors"
+
 
 
 const app: express.Express = express()
+
+app.use(cors({
+    origin: ["http://localhost:3000"]
+}))
 
 app.use(express.json())
 app.use(productRouter)
