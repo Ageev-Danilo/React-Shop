@@ -1,6 +1,5 @@
-import { client } from "../client/client";
-import { ProductRepositoryContract } from "./product.types";
-
+import { client } from '../client/client';
+import { ProductRepositoryContract } from './product.types';
 
 export const productRepository: ProductRepositoryContract = {
     async getAll() {
@@ -9,7 +8,7 @@ export const productRepository: ProductRepositoryContract = {
 
     async getById(id: number) {
         return client.product.findUnique({
-            where: { id }
+            where: { id },
         });
     },
 
@@ -19,33 +18,52 @@ export const productRepository: ProductRepositoryContract = {
             skip: offset,
             where: {
                 ...(popular ? { popular: true } : {}),
-                ...(isNew ? { isNew: true } : {})
-            }
+                ...(isNew ? { isNew: true } : {}),
+            },
         });
     },
 
     async getSame(id: number) {
         return client.product.findMany({
             where: {
-                NOT: { id }
+                NOT: { id },
             },
-            take: 4
+            take: 4,
         });
     },
 
     async getSamePrice(id: number) {
         const product = await client.product.findUnique({
-            where: { id }
+            where: { id },
         });
 
-        if (!product?.price) return [];
+        if (!product) return [];
+
+        if (product.price <= 100) return [];
 
         return client.product.findMany({
             where: {
                 NOT: { id },
-                price: { gt: product.price }
+                price: { gt: 100 },
             },
-            take: 4
+            take: 4,
         });
-    }
+    },
+
+    async getSameCategory(id: number) {
+        const product = await client.product.findUnique({
+            where: { id },
+            include: { category: true },
+        });
+
+        if (!product?.category?.id) return [];
+
+        return client.product.findMany({
+            where: {
+                NOT: { id },
+                categoryId: product.category.id,
+            },
+            take: 4,
+        });
+    },
 };

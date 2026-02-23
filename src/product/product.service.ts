@@ -33,4 +33,8 @@ export const productService: ProductServiceContract = {
     async getSamePrice(id) {
         return productRepository.getSamePrice(id);
     },
+
+    async getSameCategory(id) {
+        return productRepository.getSameCategory(id);
+    }
 };
