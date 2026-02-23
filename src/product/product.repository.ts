@@ -31,5 +31,21 @@ export const productRepository: ProductRepositoryContract = {
             },
             take: 4
         });
+    },
+
+    async getSamePrice(id: number) {
+        const product = await client.product.findUnique({
+            where: { id }
+        });
+
+        if (!product?.price) return [];
+
+        return client.product.findMany({
+            where: {
+                NOT: { id },
+                price: { gt: product.price }
+            },
+            take: 4
+        });
     }
 };

@@ -19,6 +19,7 @@ export interface ProductControllerContract {
         res: Response<Product[] | ErrorResponse>
     ) => void;
     getSame: (req: Request<{id: string}, Product[] | [] | ErrorResponse, void, void>, res: Response<Product[] | [] | ErrorResponse>) => void;
+    getSamePrice: (req: Request<{id: string}, Product[] | [] | ErrorResponse, void, void>, res: Response<Product[] | [] | ErrorResponse>) => void;
 }
 
 export interface ProductServiceContract {
@@ -26,6 +27,7 @@ export interface ProductServiceContract {
     getById: (id: number) => Promise<Product | null>
     getSuggestions: (popular: boolean, isNew: boolean, limit: number, offset: number) => Promise<Product[]>
     getSame: (id: number) => Promise<Product[]| []>
+    getSamePrice: (id: number) => Promise<Product[]| []>
 }
 
 export interface ProductRepositoryContract {
@@ -33,6 +35,7 @@ export interface ProductRepositoryContract {
     getById: (id: number) => Promise<Product | null>
     getSuggestions: (popular: boolean, isNew: boolean, limit: number, offset: number) => Promise<Product[]>
     getSame: (id: number) => Promise<Product[] | []>
+    getSamePrice: (id: number) => Promise<Product[] | []>
 }
 
 export interface ErrorResponse {

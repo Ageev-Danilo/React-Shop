@@ -1,5 +1,5 @@
-import { productRepository } from "./product.repository";
-import { ProductServiceContract } from "./product.types";
+import { productRepository } from './product.repository';
+import { ProductServiceContract } from './product.types';
 
 export const productService: ProductServiceContract = {
     async getAll() {
@@ -21,11 +21,16 @@ export const productService: ProductServiceContract = {
 
         const allProducts = await productRepository.getAll();
 
-        const sameProducts = allProducts.filter(p => //p.name === product.name 
-             p.id !== product.id 
-             && p.name.toLowerCase().includes(product.name.split(" ")[0]!.toLowerCase())
+        const sameProducts = allProducts.filter(
+            p =>
+                p.id !== product.id &&
+                p.name.toLowerCase().includes(product.name.split(' ')[0]!.toLowerCase()),
         );
-        console.log(sameProducts)
+        console.log(sameProducts);
         return sameProducts;
-    }
+    },
+
+    async getSamePrice(id) {
+        return productRepository.getSamePrice(id);
+    },
 };
