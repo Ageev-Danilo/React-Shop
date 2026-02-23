@@ -20,7 +20,9 @@ export interface UserRepositoryContract {
     findByEmail(email: string): Promise<User | null>;
     findByUserId(id: number): Promise<ContactData | null>;
     updateByUserId(id: number, data: Contacts): Promise<ContactData>;
-    updatePassword(email: string, newPassword: string): Promise<User>; // Твій метод
+    updatePassword(email: string, newPassword: string): Promise<User>;
+    getDeliveryByUserId(id: number): Promise<any>;
+    updateDeliveryByUserId(id: number, data: any): Promise<any>;
 }
 
 export interface UserServiceContract {
@@ -28,7 +30,9 @@ export interface UserServiceContract {
     login(credentials: LoginCredentials): Promise<string>;
     getContacts(userId: number): Promise<ContactData>;
     updateContacts(userId: number, data: Contacts): Promise<ContactData>;
-    updatePassword(email: string, password: string): Promise<User>; // Твій метод
+    updatePassword(email: string, password: string): Promise<User>;
+    getDelivery(id: number): Promise<any>;
+    updateDelivery(id: number, data: any): Promise<any>;
 }
 
 export interface UserControllerContract {
@@ -51,5 +55,13 @@ export interface UserControllerContract {
     passwordUpload(
         req: Request<void, { message: string } | ErrorResponce, any>,
         res: Response<{ message: string } | ErrorResponce>,
-    ): Promise<void>; // Твій метод
+    ): Promise<void>;
+    getDelivery(
+        req: Request<void, any | ErrorResponce, void, void, { userId: number }>,
+        res: Response<any | ErrorResponce, { userId: number }>,
+    ): Promise<void>;
+    updateDelivery(
+        req: Request<void, any | ErrorResponce, any, void, { userId: number }>,
+        res: Response<any | ErrorResponce, { userId: number }>,
+    ): Promise<void>;
 }

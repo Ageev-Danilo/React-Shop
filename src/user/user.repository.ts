@@ -28,4 +28,16 @@ export const UserRepository: UserRepositoryContract = {
             data: { password: newPassword },
         });
     },
+
+    async getDeliveryByUserId(id: number) {
+        return await client.delivery.findUnique({ where: { id } });
+    },
+
+    async updateDeliveryByUserId(id: number, data) {
+        return await client.delivery.upsert({
+            where: { id },
+            create: { id, ...data },
+            update: data,
+        });
+    }
 };

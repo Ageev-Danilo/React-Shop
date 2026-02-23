@@ -48,4 +48,14 @@ export const userService: UserServiceContract = {
         const hashedPassword = await hash(password, 10);
         return await UserRepository.updatePassword(email, hashedPassword);
     },
+
+    async getDelivery(id: number) {
+        const data = await UserRepository.getDeliveryByUserId(id);
+        if (!data) throw new Error('Доставка не найдена');
+        return data;
+    },
+
+    async updateDelivery(id: number, data) {
+        return await UserRepository.updateDeliveryByUserId(id, data);
+    }
 };
