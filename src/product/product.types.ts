@@ -1,7 +1,11 @@
-import { Response, Request } from 'express';
-import { Prisma } from '../generated/prisma/client';
+import { Request, Response } from 'express';
+import { Product } from '../generated/prisma'; 
 
+export type { Product }; 
 
+export interface ErrorResponse {
+    message: string;
+}
 
 export type Product = Prisma.ProductGetPayload<{}>
 
