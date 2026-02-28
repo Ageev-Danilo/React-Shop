@@ -12,7 +12,7 @@ import { config } from "dotenv"
 const app = express()
 
 app.use(cors({
-    origin: ["http://localhost:3000"]
+    origin: ["git push -u origin features/sorting_element"]
 }))
 
 app.use(express.json())

@@ -19,6 +19,7 @@ async function main() {
             name,
             email: `${name.toLowerCase()}@drones.com`,
             password: hashedPassword,
+            confirmPassword: hashedPassword,
         },
     });
 
