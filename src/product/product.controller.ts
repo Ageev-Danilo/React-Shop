@@ -113,5 +113,5 @@ export const productController: ProductControllerContract = {
         } catch (err) {
             res.status(500).json({ message: 'Server error' });
         }
-    },
+    }
 };

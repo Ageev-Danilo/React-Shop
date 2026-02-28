@@ -65,5 +65,5 @@ export const productRepository: ProductRepositoryContract = {
             },
             take: 4,
         });
-    },
+    }
 };

@@ -4,6 +4,7 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
 generator client {
   provider   = "prisma-client-js"
   engineType = "binary"
@@ -114,11 +115,11 @@ model Product {
   id               Int                               @id @default(autoincrement())
   name             String
   price            Float
-  discount         Float?
-  media            String?
-  description      String?
-  count            Int
-  categoryId       Int
+  discount         Float
+  media            String
+  description      String
+  count            Int 
+  categoryId       Int  
   category         Category                          @relation(fields: [categoryId], references: [id])
   characteristics  CharacteristicsDescriptionBlock[]
   mediaBlock       MediaDescriptionBlock[]
