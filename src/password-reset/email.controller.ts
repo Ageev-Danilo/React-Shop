@@ -5,7 +5,7 @@ import { userService } from '../user/user.service';
 export const emailController = {
     async sendResetLink(req: Request, res: Response) {
         try {
-            const { email } = req.body;
+            const  email  = req.body.email;
 
             if (!email) {
                 return res.status(400).json({ message: "Email обов'язковий" });
