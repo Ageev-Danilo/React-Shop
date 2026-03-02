@@ -17,6 +17,8 @@
     "license": "ISC",
     "dependencies": {
         "@emailjs/browser": "^4.4.1",
+        "@emailjs/nodejs": "^5.0.2",
+        "@emailjs/react-native": "^5.1.0",
         "@prisma/client": "6.17.1",
         "bcryptjs": "^3.0.3",
         "commonjs": "^0.0.1",
