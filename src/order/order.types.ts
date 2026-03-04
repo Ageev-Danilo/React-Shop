@@ -1,37 +1,44 @@
+import { Request, Response } from 'express';
+
 export interface OrderData {
     userId: number;
-    [key: string]: any;
+    status?: string;
 }
 
 export interface ProductData {
     productId: number;
     quantity: number;
-    [key: string]: any;
 }
 
 export interface Order {
     id: number;
     userId: number;
-    [key: string]: any;
+    deliveryStatus?: string;
+    products?: ProductOnOrder[];
+}
+
+export interface ProductOnOrder {
+    productId: number;
+    count: number;
 }
 
 export interface orderServiceContract {
-    addProductToOrder(orderId: number, productData: ProductData): Promise<any>;
-    getProductsInOrder(orderId: number): Promise<any>;
+    addProductToOrder(orderId: number, productData: ProductData): Promise<void>;
+    getProductsInOrder(orderId: number): Promise<ProductOnOrder[]>;
     createOrder(userId: number, orderData: OrderData): Promise<Order>;
     getOrderById(orderId: number): Promise<Order>;
 }
 
 export interface orderControllerContract {
-    addProductToOrder(req: any, res: any): Promise<void>;
-    getProductsInOrder(req: any, res: any): Promise<void>;
-    createOrder(req: any, res: any): Promise<void>;
-    getOrderById(req: any, res: any): Promise<void>;
+    addProductToOrder(req: Request, res: Response): Promise<void>;
+    getProductsInOrder(req: Request, res: Response): Promise<void>;
+    createOrder(req: Request, res: Response): Promise<void>;
+    getOrderById(req: Request, res: Response): Promise<void>;
 }
 
 export interface orderRepositoryContract {
-    addProductToOrder(orderId: number, productData: ProductData): Promise<any>;
-    getProductsInOrder(orderId: number): Promise<any>;
+    addProductToOrder(orderId: number, productData: ProductData): Promise<void>;
+    getProductsInOrder(orderId: number): Promise<ProductOnOrder[]>;
     createOrder(userId: number, orderData: OrderData): Promise<Order>;
     getOrderById(orderId: number): Promise<Order>;
 }
