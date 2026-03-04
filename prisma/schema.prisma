@@ -127,10 +127,11 @@ model Product {
   characteristics  CharacteristicsDescriptionBlock[]
   mediaBlock       MediaDescriptionBlock[]
   descriptionBlock DescriptionBlock[]
-  orders           ProductOnOrder[]
+  
   popular          Boolean                           @default(false)
   isNew            Boolean                           @default(false)
-  orders ProductOnOrder[]
+
+  orders           ProductOnOrder[]
 }
 
 model Delivery {

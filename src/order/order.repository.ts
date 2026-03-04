@@ -3,18 +3,18 @@ import { orderRepositoryContract } from './order.types';
 
 export const orderRepository: orderRepositoryContract = {
     async addProductToOrder(orderId, productData) {
-        return client.orderProduct.create({
+        return client.productOnOrder.create({
             data: {
-                orderId: parseInt(orderId),
+                orderId: +orderId,
                 productId: productData.productId,
-                quantity: productData.quantity,
+                count: productData.quantity,
             },
         });
     },
 
     async getProductsInOrder(orderId) {
-        return client.orderProduct.findMany({
-            where: { orderId: parseInt(orderId) },
+        return client.productOnOrder.findMany({
+            where: { orderId: +orderId },
             include: { product: true },
         });
     },
@@ -22,16 +22,24 @@ export const orderRepository: orderRepositoryContract = {
     async createOrder(userId, orderData) {
         return client.order.create({
             data: {
-                userId: parseInt(userId),
-                status: orderData.status,
+                userId: +userId,
+                deliveryStatus: orderData.status,
             },
         });
     },
 
     async getOrderById(orderId) {
-        return client.order.findUnique({
-            where: { id: parseInt(orderId) },
-            include: { orderProducts: { include: { product: true } } },
+        const order = await client.order.findUnique({
+            where: { id: +orderId },
+            include: {
+                products: {
+                    include: { product: true }
+                }
+            }
         });
+
+        if (!order) throw new Error('Order not found');
+
+        return order;
     }
 };
