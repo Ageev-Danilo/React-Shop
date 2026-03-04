@@ -1,5 +1,9 @@
-import emailjs from '@emailjs/browser';
+// import emailjs from '@emailjs/nodejs';
 import crypto from 'crypto';
+
+const emailjs = require('@emailjs/nodejs');
+
+emailjs.init('oo2vhpTMpp57OA9Tn'); 
 
 const resetTokens = new Map<string, { email: string; expiresAt: Date }>();
 
@@ -44,22 +48,28 @@ export const emailService = {
     },
 
     async sendPasswordResetEmail(email: string) {
+        console.log(email)
         const token = this.generateResetToken(email);
         
-        const resetLink = `http://localhost:8000/reset-password?token=${token}`;
+        const resetLink = `http://localhost:3000/reset_password`;
 
         const templateParams = {
-            to_email: email,
-            reset_link: resetLink,
-            message: "Ви запросили зміну пароля. Натисніть на посилання нижче, щоб встановити новий пароль. Посилання дійсне протягом 1 години."
+            // to_email: email,
+            // reset_link: resetLink,
+            // message: "Ви запросили зміну пароля. Натисніть на посилання нижче, щоб встановити новий пароль. Посилання дійсне протягом 1 години."
+            resetLink,
+            from_name: "chel",
+            user_email: email, // Этот email должен попасть в шаблон
+            message: "Ви запросили зміну пароля. Натисніть на посилання нижче, щоб встановити новий пароль. Посилання дійсне протягом 1 години. http://localhost:3000/reset_password    "
         };
 
         return await emailjs.send(
             'service_lqjlkai', 
             'template_nkzhzgh',  
             templateParams,
-            {
+            {   
                 publicKey: 'oo2vhpTMpp57OA9Tn',
+                privateKey: 'dwCCXQp5i7kcUpnYKJnJm'
             }
         );
     }

@@ -24,22 +24,22 @@ async function main() {
     await client.product.createMany({
         data: [
             {
-                name: 'iPhone 13 Pro',
+                name: 'iPhine 93 Pro',
                 description:
                     'Смартфон Apple iPhone 13 Pro з 6.1-дюймовим дисплеєм, процесором A15 Bionic, потрійною камерою та підтримкою 5G.',
-                price: 999,
+                price: 19,
                 media: 'https://example.com/iphone13pro.jpg',
-                count: 22,
+                count: 12,
                 discount: 0,
                 categoryId: smartphonesCategory.id,
                 popular: true,
                 isNew: false,
             },
             {
-                name: 'MacBook Pro 16',
+                name: 'MacBik Pro 34',
                 description:
                     "Ноутбук Apple MacBook Pro 16 з процесором M1 Pro, 16-дюймовим дисплеєм Retina, до 32 ГБ оперативної пам'яті та до 4 ТБ зберігання.",
-                price: 2499,
+                price: 24989,
                 media: 'https://example.com/macbookpro16.jpg',
                 count: 22,
                 discount: 0,
@@ -48,12 +48,12 @@ async function main() {
                 isNew: false,
             },
             {
-                name: 'iPad Air',
+                name: 'iPad Air 224',
                 description:
                     'Планшет Apple iPad Air з 10.9-дюймовим дисплеєм, процесором A14 Bionic, підтримкою Apple Pencil та Magic Keyboard.',
-                price: 599,
+                price: 5699,
                 media: 'https://example.com/ipadair.jpg',
-                count: 22,
+                count: 20,
                 discount: 0,
                 categoryId: tabletsCategory.id,
                 popular: true,
