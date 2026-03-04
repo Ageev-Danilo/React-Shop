@@ -46,6 +46,7 @@ export const userController: UserControllerContract = {
             res.status(200).json({ message: 'Пароль успішно оновлено' });
         } catch (error: any) {
             res.status(404).json({ message: error.message });
+            console.log(error)
         }
     },
 
