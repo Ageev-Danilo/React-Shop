@@ -28,6 +28,8 @@ model User {
 
   addressId Int?      @unique
   address   Delivery? @relation(fields: [addressId], references: [id])
+
+  orders Order[]
 }
 
 // model Delivery {
@@ -41,14 +43,19 @@ model User {
 // }
 
 model Order {
-  id             Int          @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
   comment        String?
   deliveryStatus String?
   payment        String?
-  // delivery       Delivery?
   totalPrice     Float?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
   contactDataId  Int?
   contactData    ContactData? @relation(fields: [contactDataId], references: [id])
+
+  products ProductOnOrder[]
 }
 
 model DescriptionBlock {
@@ -100,14 +107,11 @@ model ProductOnOrder {
   id    Int @id @default(autoincrement())
   count Int
 
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id])
+
   productId Int
   product   Product @relation(fields: [productId], references: [id])
-
-  // contactId  Int
-  // contact    ContactData  @relation(fields: [contactId], references: [id])
-
-  deliveryId Int?
-  delivery   Delivery? @relation(fields: [deliveryId], references: [id])
 }
 
 model Product {
@@ -126,6 +130,7 @@ model Product {
   orders           ProductOnOrder[]
   popular          Boolean                           @default(false)
   isNew            Boolean                           @default(false)
+  orders ProductOnOrder[]
 }
 
 model Delivery {
@@ -136,8 +141,7 @@ model Delivery {
   flatNumber     String?
   entranceNumber String?
 
-  orders ProductOnOrder[]
-  user   User?
+  users  User[]
 }
 
 model Category {
