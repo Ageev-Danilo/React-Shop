@@ -27,4 +27,3 @@ app.use(userRouter)
 app.listen(8000, 'localhost', () => {
     console.log('http://localhost:8000')
 })
-
