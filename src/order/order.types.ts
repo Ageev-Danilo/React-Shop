@@ -6,8 +6,8 @@ export interface OrderData {
 }
 
 export interface ProductData {
-    productId: number;
-    quantity: number;
+    id: number;
+    count: number;
 }
 
 export interface Order {
@@ -18,7 +18,7 @@ export interface Order {
 }
 
 export interface ProductOnOrder {
-    productId: number;
+    id: number;
     count: number;
 }
 
