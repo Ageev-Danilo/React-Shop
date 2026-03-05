@@ -62,6 +62,19 @@ async function main() {
         ],
     });
 
+    await client.order.createMany({
+        data: [
+            {
+                userId: 1,
+                deliveryStatus: 'pending',
+            },
+            {
+                userId: 1,
+                deliveryStatus: 'pending',
+            },
+        ],
+    });
+
     console.log('Seeding completed');
 }
 
