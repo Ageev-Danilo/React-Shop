@@ -10,7 +10,7 @@
         "art": "git add . && git commit -m 'update' && git push origin Artem",
         "pub": "node src/scripts/push.js",
         "user": "ts-node src/seeds/user.ts",
-        "fill": "ts-node src/seeds/fill.ts",
+        "fill": "ts-node ./src/seeds/fill.ts",
         "fmt": "npx prisma format"
     },
     "author": "",

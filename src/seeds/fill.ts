@@ -5,16 +5,8 @@ async function main() {
         data: { name: 'Головна' },
     });
 
-    const smartphonesCategory = await client.category.create({
-        data: { name: 'Смартфони' },
-    });
-
     const laptopsCategory = await client.category.create({
         data: { name: 'Ноутбуки' },
-    });
-
-    const tabletsCategory = await client.category.create({
-        data: { name: 'Планшети' },
     });
 
     const accessoriesCategory = await client.category.create({
@@ -31,7 +23,7 @@ async function main() {
                 media: 'https://example.com/iphone13pro.jpg',
                 count: 12,
                 discount: 0,
-                categoryId: smartphonesCategory.id,
+                categoryId: mainCategory.id,
                 popular: true,
                 isNew: false,
             },
@@ -55,24 +47,52 @@ async function main() {
                 media: 'https://example.com/ipadair.jpg',
                 count: 20,
                 discount: 0,
-                categoryId: tabletsCategory.id,
+                categoryId: laptopsCategory.id,
                 popular: true,
                 isNew: false,
             },
         ],
     });
 
-    await client.order.createMany({
-        data: [
-            {
-                userId: 1,
-                deliveryStatus: 'pending',
+    const user = await client.user.create({
+        data: {
+            name: 'John',
+            email: 'john@drones.com',
+            password: 'hashedpassword',
+            confirmPassword: 'hashedpassword',
+        },
+    });
+
+    const product = await client.product.findFirst({
+        where: { name: 'iPhine 93 Pro' },
+    });
+
+    const contact = await client.contactData.create({
+        data: {
+            firstName: 'John',
+            phoneNumber: '+380123456789',
+            user: {
+                connect: { id: user.id }
             },
-            {
-                userId: 1,
-                deliveryStatus: 'pending',
-            },
-        ],
+        },
+    });
+
+    const order = await client.order.create({
+        data: {
+            userId: user.id,
+            contactDataId: contact.id,
+            payment: 'card',
+            deliveryStatus: 'pending',
+            totalPrice: 500,
+        },
+    });
+
+    await client.productOnOrder.create({
+        data: {
+            orderId: order.id,
+            productId: product!.id,
+            count: 1,
+        },
     });
 
     console.log('Seeding completed');

@@ -5,6 +5,7 @@ import { categoryRouter } from './category/category.router';
 import { mailRouter } from "./main/mail.router";
 import {userRouter} from "./user/user.router"
 import { emailRouter } from './password-reset/email.router';
+import { orderRouter } from './order/order.router';
 import { config } from "dotenv"
 
 
@@ -21,6 +22,7 @@ app.use("/users/profile", categoryRouter)
 app.use("/mail", mailRouter);
 app.use('/api/email', emailRouter);
 app.use(userRouter)
+app.use(orderRouter)
 
 
 app.listen(8000, 'localhost', () => {

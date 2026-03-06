@@ -45,15 +45,15 @@ model User {
 model Order {
   id             Int     @id @default(autoincrement())
   comment        String?
-  deliveryStatus String?
+  deliveryStatus String
   payment        String?
   totalPrice     Float?
 
   userId Int
   user   User @relation(fields: [userId], references: [id])
 
-  contactDataId  Int?
-  contactData    ContactData? @relation(fields: [contactDataId], references: [id])
+  contactDataId Int?
+  contactData   ContactData? @relation(fields: [contactDataId], references: [id])
 
   products ProductOnOrder[]
 }
@@ -127,11 +127,11 @@ model Product {
   characteristics  CharacteristicsDescriptionBlock[]
   mediaBlock       MediaDescriptionBlock[]
   descriptionBlock DescriptionBlock[]
-  
-  popular          Boolean                           @default(false)
-  isNew            Boolean                           @default(false)
 
-  orders           ProductOnOrder[]
+  popular Boolean @default(false)
+  isNew   Boolean @default(false)
+
+  orders ProductOnOrder[]
 }
 
 model Delivery {
@@ -142,7 +142,7 @@ model Delivery {
   flatNumber     String?
   entranceNumber String?
 
-  users  User[]
+  users User[]
 }
 
 model Category {

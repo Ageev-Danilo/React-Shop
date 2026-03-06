@@ -6,8 +6,8 @@ export const orderRepository: orderRepositoryContract = {
         return client.productOnOrder.create({
             data: {
                 orderId: +orderId,
-                productId: productData.productId,
-                count: productData.quantity,
+                productId: productData.id,
+                count: productData.count,
             },
         });
     },
@@ -23,14 +23,17 @@ export const orderRepository: orderRepositoryContract = {
         return client.order.create({
             data: {
                 userId: +userId,
-                deliveryStatus: orderData.status,
+                payment: orderData.payment ?? null,
+                comment: orderData.comment ?? null,
+                totalPrice: orderData.totalPrice ?? null,
+                deliveryStatus: orderData.deliveryStatus,
             },
         });
     },
 
-    async getOrderById(orderId) {
-        const order = await client.order.findUnique({
-            where: { id: +orderId },
+    /*async getOrderById(orderId) {
+        const order = await client.order.findMany({
+            where: { userId: +orderId ===   },
             include: {
                 products: {
                     include: { product: true }
@@ -41,5 +44,9 @@ export const orderRepository: orderRepositoryContract = {
         if (!order) throw new Error('Order not found');
 
         return order;
+    }*/
+
+    async getAllOrders() {
+        return client.order.findMany();
     }
 };
