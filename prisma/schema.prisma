@@ -5,30 +5,31 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "binary"
   outputType = "esm"
-  output   = "../src/generated/prisma"
-} 
-
-
+  output     = "../src/generated/prisma"
+}
 
 datasource db {
   provider = "sqlite"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
- id            Int          @id @default(autoincrement())
- name          String
- email         String       @unique
- password      String
+  id              Int    @id @default(autoincrement())
+  name            String
+  email           String @unique
+  password        String
+  confirmPassword String
 
- contactDataId Int?         @unique
- contactData   ContactData? @relation(fields: [contactDataId], references: [id])
+  contactDataId Int?         @unique
+  contactData   ContactData? @relation(fields: [contactDataId], references: [id])
 
- addressId     Int?         @unique
- address       Delivery?    @relation(fields: [addressId], references: [id])
+  addressId Int?      @unique
+  address   Delivery? @relation(fields: [addressId], references: [id])
+
+  orders Order[]
 }
 
 // model Delivery {
@@ -42,18 +43,23 @@ model User {
 // }
 
 model Order {
-  id             Int    @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
   comment        String?
-  deliveryStatus String?
+  deliveryStatus String
   payment        String?
-  // delivery       Delivery?
   totalPrice     Float?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
   contactDataId Int?
-  contactData   ContactData?    @relation(fields: [contactDataId], references: [id])
+  contactData   ContactData? @relation(fields: [contactDataId], references: [id])
+
+  products ProductOnOrder[]
 }
 
 model DescriptionBlock {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String?
   description String?
   title       String?
@@ -61,31 +67,31 @@ model DescriptionBlock {
   count       Int?
   media       String?
   price       Float?
-  productId Int?
-  product   Product?    @relation(fields: [productId], references: [id])
+  productId   Int?
+  product     Product? @relation(fields: [productId], references: [id])
 }
 
 model MediaDescriptionBlock {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   header      String?
   description String?
   media       String?
-  productId Int?
-  product   Product?    @relation(fields: [productId], references: [id])
+  productId   Int?
+  product     Product? @relation(fields: [productId], references: [id])
 }
 
 model CharacteristicsDescriptionBlock {
-  id             Int    @id @default(autoincrement())
-  header         String?
-  description    String?
+  id              Int      @id @default(autoincrement())
+  header          String?
+  description     String?
   characteristics String?
-  media          String?
-  productId Int?
-  product   Product?    @relation(fields: [productId], references: [id])
+  media           String?
+  productId       Int?
+  product         Product? @relation(fields: [productId], references: [id])
 }
 
 model ContactData {
-  id          Int               @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   firstName   String
   secondName  String?
   patronymic  String?
@@ -93,38 +99,39 @@ model ContactData {
   phoneNumber String?
   email       String?
 
-  user        User?
-  orders      Order[]
+  user   User?
+  orders Order[]
 }
 
 model ProductOnOrder {
-  id         Int          @id @default(autoincrement())
-  count      Int
+  id    Int @id @default(autoincrement())
+  count Int
 
-  productId  Int
-  product    Product      @relation(fields: [productId], references: [id])
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id])
 
-  // contactId  Int
-  // contact    ContactData  @relation(fields: [contactId], references: [id])
-
-  deliveryId Int?
-  delivery   Delivery?    @relation(fields: [deliveryId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 model Product {
-  id          Int                 @id @default(autoincrement())
-  name        String
-  price       Float
-  discount    Float?
-  media       String?
-  description String?
-  count       Int
-  characteristics CharacteristicsDescriptionBlock[]
-  mediaBlock MediaDescriptionBlock[]
+  id               Int                               @id @default(autoincrement())
+  name             String
+  price            Float
+  discount         Float
+  media            String
+  description      String
+  count            Int
+  categoryId       Int
+  category         Category                          @relation(fields: [categoryId], references: [id])
+  characteristics  CharacteristicsDescriptionBlock[]
+  mediaBlock       MediaDescriptionBlock[]
   descriptionBlock DescriptionBlock[]
-  orders      ProductOnOrder[]
-  popular     Boolean            @default(false)
-  new         Boolean            @default(false)
+
+  popular Boolean @default(false)
+  isNew   Boolean @default(false)
+
+  orders ProductOnOrder[]
 }
 
 model Delivery {
@@ -135,13 +142,13 @@ model Delivery {
   flatNumber     String?
   entranceNumber String?
 
-  orders ProductOnOrder[]
-  user   User?
+  users User[]
 }
 
 model Category {
-  id    Int     @id @default(autoincrement())
-  name  String
+  id      Int       @id @default(autoincrement())
+  name    String
+  Product Product[]
 }
 
 // model User {

@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { categoryController } from "./category.controller";
+import { Router } from 'express';
+import { categoryController } from './category.controller';
 
 export const categoryRouter = Router();
 
-categoryRouter.get("/category", categoryController.getAll);
+categoryRouter.get('/category', categoryController.getAll);
